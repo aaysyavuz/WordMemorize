@@ -37,5 +37,40 @@ namespace WordMemorize.Windows
         {
             Service.MinimizePage(this);
         }
+        private void CreateVerCode(){}
+        private void SendMail(){}
+        private void SendButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            CreateVerCode();
+            SendMail();
+            verCodetxtBlock.Visibility = Visibility.Visible;
+            txtVerificationCode.IsEnabled = true;
+            OkButton.IsEnabled = true;
+        }
+
+        private bool CheckCode()
+        {
+            return true;
+
+        }
+        private void ChangePassword(){}
+        private void OkButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (CheckCode())
+            {
+                passTxtBlock.Visibility = Visibility.Visible;
+                txtPassword.IsEnabled = true;
+                changePassBtn.IsEnabled = true;
+            }
+            else
+            {
+                MessageBox.Show("Your verification code is false!");
+            }
+        }
+
+        private void ChangePassBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            ChangePassword();
+        }
     }
 }
