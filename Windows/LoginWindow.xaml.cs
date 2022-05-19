@@ -25,34 +25,22 @@ namespace WordMemorize
     public partial class LoginWindow : Window
     {
         public wordmemorizeContext databaseContext;
+        private Service service;
         public LoginWindow()
         {
             InitializeComponent();
+            service = new Service();
             databaseContext = new wordmemorizeContext();
         }
         public string UserEmail;
         public string UserPassword;
-        private void LoginBtn_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            UserEmail = txtEmail.Text;
-            UserPassword = txtPassword.Password;
-            if (Service.IsRegistered(UserEmail)) 
-            {
-                Login();
-            }
-            else
-            {
-                AlertBox alertBox = new AlertBox("There isn't any account with this email.Please register first!");
-                alertBox.Show();
-            }
-        }
         private void Login()
         {
             User user = databaseContext.Users.FirstOrDefault(user => user.Email == UserEmail);
             string password = user.Password;
             if (password == UserPassword)
             {
-                Window controlPanel = (user.UserRoleId == 1) ?  (Window) new AdminControlPanel() : new StudentControlPanel();
+                Window controlPanel = (user.UserRoleId == 1) ?  (Window) new AdminControlPanel((int)user.Id) : new StudentControlPanel((int)user.Id);
                 controlPanel.Show();
             }
             else
@@ -62,23 +50,41 @@ namespace WordMemorize
             }
         }
 
-        private void ForgotPassBtn_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+
+        private void CloseApp(object sender, MouseButtonEventArgs e)
         {
-            if (!Service.IsRegistered(UserEmail))
+            service.CloseApp();
+        }
+
+        private void MaximizaPage(object sender, MouseButtonEventArgs e)
+        {
+            service.MaximizePage(this);
+        }
+
+        private void MinimizePage(object sender, MouseButtonEventArgs e)
+        {
+            service.MinimizePage(this);
+        }
+
+        private void LoginBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            UserEmail = txtEmail.Text;
+            UserPassword = txtPassword.Password;
+            if (service.IsRegistered(UserEmail))
             {
-                AlertBox alertBox = new AlertBox("There isn't any account with this email.");
-                alertBox.Show();
+                Login();
             }
             else
             {
-                ChangePasswordWindow changePassWindow = new ChangePasswordWindow();
-                changePassWindow.Show();
+                AlertBox alertBox = new AlertBox("There isn't any account with this email.Please register first!");
+                alertBox.Show();
             }
         }
 
-        private void SignupBtn_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void SignupBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Service.IsRegistered(UserEmail))
+            if (service.IsRegistered(UserEmail))
             {
                 AlertBox alertBox = new AlertBox("You already have an account with this email!");
                 alertBox.Show();
@@ -91,19 +97,18 @@ namespace WordMemorize
             }
         }
 
-        private void CloseApp(object sender, MouseButtonEventArgs e)
+        private void ForgotPassBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            Service.CloseApp();
-        }
-
-        private void MaximizaPage(object sender, MouseButtonEventArgs e)
-        {
-            Service.MaximizePage(this);
-        }
-
-        private void MinimizePage(object sender, MouseButtonEventArgs e)
-        {
-            Service.MinimizePage(this);
+            if (!service.IsRegistered(UserEmail))
+            {
+                AlertBox alertBox = new AlertBox("There isn't any account with this email.");
+                alertBox.Show();
+            }
+            else
+            {
+                ChangePasswordWindow changePassWindow = new ChangePasswordWindow((int)databaseContext.Users.FirstOrDefault(u => u.Email == UserEmail).Id);
+                changePassWindow.Show();
+            }
         }
     }
 }

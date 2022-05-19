@@ -36,12 +36,12 @@
                 <PasswordBox Margin="0 20 0 0" x:Name="txtPassword" Width="300" FontSize="18" materialDesign:HintAssist.Hint="Enter Password" BorderThickness="2"
                           BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
                 <Button  Margin="145,10,0,0" x:Name="forgotPassBtn" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                         Height="30" Width="155" materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Forgot Password?" MouseLeftButtonDown="ForgotPassBtn_OnMouseLeftButtonDown"/>
+                         Height="30" Width="155" materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Forgot Password?" Click="ForgotPassBtn_OnClick"/>
 
                 <Button Margin="0 20 0 0" x:Name="loginBtn" Style="{StaticResource MaterialDesignFlatMidBgButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                        Height="53" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="LOG IN" MouseLeftButtonDown="LoginBtn_OnMouseLeftButtonDown"/>
+                        Height="53" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="LOG IN" Click="LoginBtn_OnClick"/>
                 <Button Margin="0 20 0 0" x:Name="signupBtn" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                        Height="53" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="Create Account" MouseLeftButtonDown="SignupBtn_OnMouseLeftButtonDown"/>
+                        Height="53" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="Create Account" Click="SignupBtn_OnClick"/>
             </StackPanel>
         </Grid>
     </materialDesign:Card>

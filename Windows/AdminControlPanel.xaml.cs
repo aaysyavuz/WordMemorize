@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WordMemorize.DatabaseModels;
 using WordMemorize.Helpers;
 
 namespace WordMemorize.Windows
@@ -18,15 +20,21 @@ namespace WordMemorize.Windows
     /// </summary>
     public partial class AdminControlPanel : Window
     {
-        public AdminControlPanel()
+        public AdminControlPanel(int userId)
         {
             InitializeComponent();
             FillGrid();
+            service = new Service();
+            dbContext = new wordmemorizeContext();
+            this.userId = userId;
         }
 
+        private int userId;
+        private Service service;
         private string EngWord;
         private string TrWord;
         private DateTime AddedDate;
+        private wordmemorizeContext dbContext;
         private void TextBoxAssign()
         {
             this.EngWord = txtengword.Text;
@@ -36,12 +44,24 @@ namespace WordMemorize.Windows
 
         private void FillGrid()
         {
-            //TODO
+            service.FillGrid(words,userId);
         }
 
         private void AddWord()
         {
-            //TODO
+            List<User> users = dbContext.Users.ToList();
+            Question question = new Question();
+            question.EnglishWord = EngWord;
+            question.TurkishWord = TrWord;
+            question.Level = 0;
+            question.Date = DateTime.Today;
+            for (int i = 0; i < users.Count; i++)
+            {
+                question.UserId = users[i].Id;
+                dbContext.Questions.Add(question);
+            }
+
+            dbContext.SaveChanges();
         }
 
         private void CleanTextBoxes()
@@ -58,7 +78,9 @@ namespace WordMemorize.Windows
         }
         private void RemoveWord()
         {
-            //TODO
+            Question question = dbContext.Questions.FirstOrDefault(q => q.EnglishWord == EngWord && q.TurkishWord == TrWord);
+            dbContext.Questions.Remove(question);
+            dbContext.SaveChanges();
         }
         
         private void RmvQuestionBtn_OnClick(object sender, RoutedEventArgs e)
@@ -73,7 +95,7 @@ namespace WordMemorize.Windows
         {
             if (MessageBox.Show("Do you want to log out?", "Warning!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                Service.HidePage(this);
+                service.HidePage(this);
                 LoginWindow loginWindow = new LoginWindow();
                 loginWindow.Show();
             }

@@ -12,7 +12,7 @@
         Background="{x:Null}"
         AllowsTransparency="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -36,21 +36,21 @@
             <TabControl Grid.Row="1" Style="{DynamicResource MaterialDesignTabControl}">
                 <TabItem Style="{DynamicResource MaterialDesignTabItem}" Header="{materialDesign:PackIcon FileCheck}" ToolTip="Learned Words">
                     <StackPanel>
-                        <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" Height="550" Width="420">
+                        <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" Height="550" Width="420" x:Name="learnedWords" Loaded="learnedWords_Loaded">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding id}" Header="id" Width="0"/>
-                                <DataGridTextColumn Binding="{Binding englishWord}" Header="ENGLISH" Width="*"/>
-                                <DataGridTextColumn Binding="{Binding turkishWord}" Header="TURKISH" Width="*"/>
-                                <DataGridTextColumn Binding="{Binding seviye}" Header="LEVEL" Width="*"/>
-                                <DataGridTextColumn Binding="{Binding tarih}" Header="DATE" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Id}" Header="id" Width="0"/>
+                                <DataGridTextColumn Binding="{Binding EnglishWord}" Header="ENGLISH" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding TurkishWord}" Header="TURKISH" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Level}" Header="LEVEL" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Date}" Header="DATE" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
                 </TabItem>
                 <TabItem Style="{DynamicResource MaterialDesignTabItem}" Header="{materialDesign:PackIcon FileQuestion}" ToolTip="Start Quiz">
                     <StackPanel  Width="200" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Height="50" Style="{DynamicResource MaterialDesignFlatDarkBgButton}" >Start Quiz</Button>
-                        <Button Height="50" Style="{DynamicResource MaterialDesignFlatDarkBgButton}" Margin="0,30,0,0" >Practice</Button>
+                    <Button x:Name="StartQuiz" Height="50" Style="{DynamicResource MaterialDesignFlatDarkBgButton}" Click="StartQuiz_OnClick">Start Quiz</Button>
+                        <Button Height="50" Style="{DynamicResource MaterialDesignFlatDarkBgButton}" Margin="0,30,0,0" Click="Practice_OnClick">Practice</Button>
 
 </StackPanel>
                 </TabItem>
@@ -94,51 +94,33 @@
                                     
 
                                 </Grid.RowDefinitions>
-                                <TextBox Grid.Row="0" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
-                                <ComboBox Grid.Row="0" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
+                                <TextBox x:Name="txtlvl1" Grid.Row="0" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
+                                <ComboBox x:Name="combolvl1" Grid.Row="0" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
                                     <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Day</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Week</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Month</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Year</ComboBoxItem>
 
                                 </ComboBox>
-                                <TextBox Grid.Row="1" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
-                                <ComboBox Grid.Row="1" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
+                                <TextBox x:Name="txtlvl2" Grid.Row="1" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
+                                <ComboBox x:Name="combolvl2"  Grid.Row="1" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
                                     <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Day</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Week</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Month</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Year</ComboBoxItem>
                                 </ComboBox>
-                                <TextBox Grid.Row="2" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
-                                <ComboBox Grid.Row="2" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
+                                <TextBox x:Name="txtlvl3"  Grid.Row="2" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
+                                <ComboBox x:Name="combolvl3"  Grid.Row="2" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
                                     <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Day</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Week</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Month</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Year</ComboBoxItem>
                                 </ComboBox>
-                                <TextBox Grid.Row="3" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
-                                <ComboBox Grid.Row="3" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
+                                <TextBox x:Name="txtlvl4"  Grid.Row="3" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
+                                <ComboBox x:Name="combolvl4"  Grid.Row="3" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
                                     <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Day</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Week</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Month</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Year</ComboBoxItem>
                                 </ComboBox>
-                                <TextBox Grid.Row="4" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
-                                <ComboBox Grid.Row="4" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
+                                <TextBox x:Name="txtlvl5"  Grid.Row="4" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
+                                <ComboBox x:Name="combolvl5"  Grid.Row="4" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
                                     <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Day</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Week</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Month</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Year</ComboBoxItem>
                                 </ComboBox>
-                                <TextBox Grid.Row="5" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
-                                <ComboBox Grid.Row="5" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
+                                <TextBox x:Name="txtlvl6"  Grid.Row="5" Style="{DynamicResource MaterialDesignTextBox}" Width="50" Height="50" HorizontalAlignment="Left"></TextBox>
+                                <ComboBox x:Name="combolvl6"  Grid.Row="5" Style="{DynamicResource MaterialDesignComboBox}" Width="100" HorizontalAlignment="Right">
                                     <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Day</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Week</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Month</ComboBoxItem>
-                                    <ComboBoxItem Style="{DynamicResource MaterialDesignComboBoxItemStyle}">Year</ComboBoxItem>
-                                    
+
                                 </ComboBox>
-                                <Button Grid.Row="6" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,0,5,0">OK</Button>
+                                <Button Grid.Row="6" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,0,5,0" Click="ButtonBase_OnClick">OK</Button>
                             </Grid>
                         </Grid>
                     </StackPanel>

@@ -46,7 +46,7 @@
                              Width="100" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="Log Out" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Logoutbtn_OnClick"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" Height="500" Width="642">
+                    <DataGrid  x:Name="words" Style="{DynamicResource MaterialDesignDataGrid}" Height="500" Width="642">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding id}" Header="id" Width="0"/>
                             <DataGridTextColumn Binding="{Binding englishWord}" Header="ENGLISH" Width="*"/>

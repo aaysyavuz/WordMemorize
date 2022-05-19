@@ -32,25 +32,27 @@ namespace WordMemorize.Windows
         }
 
         private UserRole role;
+        private Service service;
         public RegisterWindow()
         {
             InitializeComponent();
             databaseContext = new wordmemorizeContext();
+            service = new Service();
         }
 
         private void HidePage(object sender, MouseButtonEventArgs e)
         {
-            Service.HidePage(this);
+            service.HidePage(this);
         }
 
         private void Maximize(object sender, MouseButtonEventArgs e)
         {
-            Service.MaximizePage(this);
+            service.MaximizePage(this);
         }
 
         private void Minimize(object sender, MouseButtonEventArgs e)
         {
-            Service.MinimizePage(this);
+            service.MinimizePage(this);
         }
 
         private void AdminBtnClick(object sender, RoutedEventArgs e)
@@ -84,7 +86,7 @@ namespace WordMemorize.Windows
                 Password = txtPassword.Text;
                 FirstName = txtFirstName.Text;
                 LastName = txtLastName.Text;
-                if (Service.IsRegistered(Email))
+                if (service.IsRegistered(Email))
                 {
                     AlertBox alertBox = new AlertBox("You already have an account with this email!");
                     alertBox.Show();

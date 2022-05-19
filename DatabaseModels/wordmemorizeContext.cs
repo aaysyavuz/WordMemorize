@@ -17,6 +17,8 @@ namespace WordMemorize.DatabaseModels
         {
         }
 
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
 
@@ -33,6 +35,67 @@ namespace WordMemorize.DatabaseModels
         {
             modelBuilder.HasCharSet("utf8mb4")
                 .UseCollation("utf8mb4_0900_ai_ci");
+
+            modelBuilder.Entity<Question>(entity =>
+            {
+                entity.ToTable("question");
+
+                entity.HasIndex(e => e.UserId, "FK__user");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Date)
+                    .HasColumnType("datetime")
+                    .HasColumnName("date");
+
+                entity.Property(e => e.EnglishWord)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .HasColumnName("englishWord");
+
+                entity.Property(e => e.Level).HasColumnName("level");
+
+                entity.Property(e => e.TurkishWord)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .HasColumnName("turkishWord");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Questions)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__user");
+            });
+
+            modelBuilder.Entity<Setting>(entity =>
+            {
+                entity.ToTable("settings");
+
+                entity.HasIndex(e => e.UserId, "FK_settings_user");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Level1Date).HasColumnName("level1Date");
+
+                entity.Property(e => e.Level2Date).HasColumnName("level2Date");
+
+                entity.Property(e => e.Level3Date).HasColumnName("level3Date");
+
+                entity.Property(e => e.Level4Date).HasColumnName("level4Date");
+
+                entity.Property(e => e.Level5Date).HasColumnName("level5Date");
+
+                entity.Property(e => e.Level6Date).HasColumnName("level6Date");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Settings)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_settings_user");
+            });
 
             modelBuilder.Entity<User>(entity =>
             {

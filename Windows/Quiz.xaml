@@ -23,20 +23,20 @@
                 <RowDefinition Height="12*"></RowDefinition>
             </Grid.RowDefinitions>
             <Ellipse Fill="{StaticResource MaterialDesignDarkBackground}" Width="15" Height="15" materialDesign:ButtonAssist.CornerRadius="10"
-                     Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0"/>
+                     Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" MouseLeftButtonDown="Closee"/>
             <Ellipse Fill="{StaticResource PrimaryHueMidBrush}" Width="15" Height="15" materialDesign:ButtonAssist.CornerRadius="10"
-                     Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0"/>
+                     Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="Maximize"/>
             <Ellipse Fill="{StaticResource PrimaryHueLightBrush}" Width="15" Height="15" materialDesign:ButtonAssist.CornerRadius="10"
-                     Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,50,0"/>
+                     Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,50,0" MouseLeftButtonDown="Minimize"/>
             
-                <TextBlock Grid.Row="1" x:Name="question" Width="400" Height="70" Background="{StaticResource PrimaryHueLightBrush}" VerticalAlignment="Top" Margin="0,50,0,0" Foreground="AntiqueWhite" FontSize="30"  Padding="15" TextAlignment="Center" />
-                <Button Grid.Row="1" x:Name="A" Width="200" Height="50"  FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="0,0,300,0" />
-                <Button Grid.Row="1" x:Name="B" Width="200" Height="50"  FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="300,0,0,0" />
-                <Button Grid.Row="1" x:Name="C" Width="200" Height="50"  FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="0,150,300,0" />
-                <Button Grid.Row="1" x:Name="D" Width="200" Height="50"  FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="300,150,0,0" />
-                <Button Grid.Row="1" x:Name="E" Width="200" Height="50"  FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="0,300,0,0" />
-                <Button Grid.Row="1" x:Name="Skip" Width="70" Height="30" Style="{DynamicResource MaterialDesignFlatDarkButton}" Content="Pas" Margin="658,339,44,0" FontSize="14"  Padding="0" RenderTransformOrigin="0.96,1.042" />
-                <Button Grid.Row="1" x:Name="Correct" Width="70" Height="30" Content="Geç" Margin="662,354,48,10" Style="{DynamicResource MaterialDesignFlatLightBgButton}" FontSize="14"  Padding="0" RenderTransformOrigin="0.96,1.042"  Visibility="Collapsed" />
+                <TextBlock Grid.Row="1" x:Name="question" Width="400" Height="70" Background="{StaticResource PrimaryHueLightBrush}" VerticalAlignment="Top" Margin="0,50,0,0" Foreground="AntiqueWhite" FontSize="30"  Padding="15" TextAlignment="Center" Loaded="question_Loaded" />
+                <Button Grid.Row="1" x:Name="A" Width="200" Height="50"  FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="0,0,300,0" Click="Answer_OnClick"/>
+            <Button Grid.Row="1" x:Name="B" Width="200" Height="50" Background="DarkSlateBlue" FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="300,0,0,0" Click="Answer_OnClick"/>
+            <Button Grid.Row="1" x:Name="C" Width="200" Height="50" Background="DarkSlateBlue" FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="0,150,300,0" Click="Answer_OnClick"/>
+            <Button Grid.Row="1" x:Name="D" Width="200" Height="50" Background="DarkSlateBlue" FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="300,150,0,0" Click="Answer_OnClick"/>
+            <Button Grid.Row="1" x:Name="E" Width="200" Height="50" Background="DarkSlateBlue" FontSize="22" Style="{DynamicResource MaterialDesignFlatMidBgButton}"  Padding="7" Margin="0,300,0,0" Click="Answer_OnClick"/>
+                <Button Grid.Row="1" x:Name="Skip" Width="70" Height="30" Style="{DynamicResource MaterialDesignFlatDarkButton}" Content="Pas" Margin="658,339,44,0" FontSize="14"  Padding="0" RenderTransformOrigin="0.96,1.042" Click="Skip_OnClick"/>
+                <Button Grid.Row="1" x:Name="Correct" Width="70" Height="30" Content="Geç" Margin="662,354,48,10" Style="{DynamicResource MaterialDesignFlatLightBgButton}" FontSize="14"  Padding="0" RenderTransformOrigin="0.96,1.042"  Visibility="Collapsed" Click="Correct_OnClick"/>
         </Grid>
     </materialDesign:Card>
 </Window>

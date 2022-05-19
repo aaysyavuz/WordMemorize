@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WordMemorize.DatabaseModels;
 using WordMemorize.Helpers;
 
 namespace WordMemorize.Windows
@@ -18,26 +20,38 @@ namespace WordMemorize.Windows
     /// </summary>
     public partial class ChangePasswordWindow : Window
     {
-        public ChangePasswordWindow()
+        private Service service;
+        private int userId;
+        private wordmemorizeContext dbContext;
+        public ChangePasswordWindow(int userId)
         {
             InitializeComponent();
+            service = new Service();
+            this.userId = userId;
+            dbContext = new wordmemorizeContext();
         }
+
+        private string VerCode;
 
         private void ClosePage(object sender, MouseButtonEventArgs e)
         {
-            Service.HidePage(this);
+            service.HidePage(this);
         }
 
         private void MaximizePage(object sender, MouseButtonEventArgs e)
         {
-            Service.MaximizePage(this);
+            service.MaximizePage(this);
         }
 
         private void MinimizePage(object sender, MouseButtonEventArgs e)
         {
-            Service.MinimizePage(this);
+            service.MinimizePage(this);
         }
-        private void CreateVerCode(){}
+
+        private void CreateVerCode()
+        {
+            VerCode = "1234";
+        }
         private void SendMail(){}
         private void SendButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -53,7 +67,13 @@ namespace WordMemorize.Windows
             return true;
 
         }
-        private void ChangePassword(){}
+
+        private void ChangePassword()
+        {
+            User user = dbContext.Users.FirstOrDefault(u => u.Id == userId);
+            user.Password = txtPassword.Text;
+            dbContext.SaveChanges();
+        }
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (CheckCode())
