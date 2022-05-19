@@ -40,6 +40,7 @@ namespace WordMemorize.Windows
             this.EngWord = txtengword.Text;
             this.TrWord = txttrWord.Text;
             this.AddedDate = DateTime.Today;
+            service = new Service();
         }
 
         private void FillGrid()
